@@ -1,27 +1,16 @@
-# NgScrollGallery
+# scroll-gallery-ng
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
+## 功能特性
 
-## Development server
+### 滚动
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* 跟随鼠标滚动
+* 松开鼠标之后滚动到最近一个 gallery item（需要一个缓动效果）
+* 当拖拽区域超出内容区域的时候滚动有阻力（需要一个阻力函数）
 
-## Code scaffolding
+> 设计一个滚动条也是个专门的学问
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### 翻转
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+* 当前 item 加粗阴影
+* 点击 item 到当前 item，并且通过 flip 动画展示一个 modal

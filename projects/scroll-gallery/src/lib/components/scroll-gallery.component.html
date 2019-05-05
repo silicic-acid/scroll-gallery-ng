@@ -1,0 +1,10 @@
+<div class="scroll-slack" #slack>
+  <div
+    #track
+    class="scroll-track"
+    [class.dragging]="isDragging"
+    [class.transitioning]="isTransitioning"
+  >
+    <ng-content></ng-content>
+  </div>
+</div>

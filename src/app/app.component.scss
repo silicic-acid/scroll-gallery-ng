@@ -1,0 +1,16 @@
+.container {
+  margin: auto;
+  padding-top: 200px;
+  width: 100%;
+
+  si-gallery-item {
+    width: 240px;
+    height: 320px;
+
+    line-height: 320px;
+    text-align: center;
+    font-size: 36px;
+
+    user-select: none;
+  }
+}
