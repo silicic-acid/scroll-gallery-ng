@@ -1,16 +1,7 @@
-# scroll-gallery-ng
+# @silicic/scroll-gallery-ng
 
-## 功能特性
+[Demo](https://si-scroll-gallery-ng.wendell.site)
 
-### 滚动
+## License
 
-* 跟随鼠标滚动
-* 松开鼠标之后滚动到最近一个 gallery item（需要一个缓动效果）
-* 当拖拽区域超出内容区域的时候滚动有阻力（需要一个阻力函数）
-
-> 设计一个滚动条也是个专门的学问
-
-### 翻转
-
-* 当前 item 加粗阴影
-* 点击 item 到当前 item，并且通过 flip 动画展示一个 modal
+MIT
