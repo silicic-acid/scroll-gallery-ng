@@ -34,9 +34,18 @@ header {
     }
   }
 
-  .full-width-container {
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
+  @media screen and (max-width: 415px) {
+    .full-width-container {
+      width: 100%;
+      overflow: scroll;
+    }
+  }
+
+  @media screen and (min-width: 415px) {
+    .full-width-container {
+      width: 100vw;
+      margin-left: calc(-50vw + 50%);
+    }
   }
 
   si-scroll-gallery {

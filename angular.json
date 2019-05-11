@@ -4,7 +4,7 @@
   "newProjectRoot": "projects",
   "projects": {
     "scroll-gallery-ng-docs": {
-      "root": "",
+      "root": "src",
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
@@ -25,6 +25,7 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.scss"],
             "scripts": [],
+            "extractCss": true,
             "es5BrowserSupport": true
           },
           "configurations": {
@@ -57,62 +58,24 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "scroll-gallery-ng:build"
+            "browserTarget": "scroll-gallery-ng-docs:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "scroll-gallery-ng:build:production"
+              "browserTarget": "scroll-gallery-ng-docs:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "scroll-gallery-ng:build"
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.spec.json",
-            "karmaConfig": "src/karma.conf.js",
-            "styles": ["src/styles.sass"],
-            "scripts": [],
-            "assets": ["src/favicon.ico", "src/assets"]
+            "browserTarget": "scroll-gallery-ng-docs:build"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
-          }
-        }
-      }
-    },
-    "scroll-gallery-ng-e2e": {
-      "root": "e2e/",
-      "projectType": "application",
-      "prefix": "",
-      "architect": {
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "scroll-gallery-ng:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "scroll-gallery-ng:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": "e2e/tsconfig.e2e.json",
             "exclude": ["**/node_modules/**"]
           }
         }
