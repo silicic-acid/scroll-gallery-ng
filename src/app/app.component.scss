@@ -1,7 +1,49 @@
+.page-container {
+  margin: auto;
+  padding: 64px 16px 24px;
+  max-width: 32rem;
+}
+
+header {
+  display: flex;
+  align-items: center;
+
+  .header {
+    flex-grow: 1;
+    font-size: 24px;
+  }
+
+  #avatar {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    flex-grow: 0;
+  }
+}
+
 .container {
   margin: auto;
-  padding-top: 200px;
   width: 100%;
+
+  section {
+    margin: 32px 0 56px;
+
+    .header {
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+  }
+
+  .full-width-container {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+
+  si-scroll-gallery {
+    // position: absolute;
+    // left: 0;
+    width: 100vw;
+  }
 
   si-gallery-item {
     width: 240px;
@@ -13,4 +55,15 @@
 
     user-select: none;
   }
+}
+
+table.api-table {
+  width: 60%;
+  margin: auto;
+}
+
+footer {
+  text-align: center;
+  font-size: 12px;
+  color: #7b8b9b;
 }

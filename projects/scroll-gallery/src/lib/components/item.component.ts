@@ -31,7 +31,7 @@ export class ScrollGalleryItemComponent {
     this.cdr.markForCheck();
   }
 
-  private applyScale(): void {
+  applyScale(): void {
     const oldTransform = this.el.style.transform;
 
     let appliedTransform = oldTransform

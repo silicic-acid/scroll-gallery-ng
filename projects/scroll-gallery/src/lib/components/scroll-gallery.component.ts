@@ -1,5 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import {
+  AfterContentInit,
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -10,15 +11,15 @@ import {
   HostBinding,
   Inject,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
   QueryList,
   Renderer2,
+  SimpleChanges,
   ViewChild,
-  ViewEncapsulation,
-  OnChanges,
-  SimpleChanges
+  ViewEncapsulation
 } from '@angular/core';
 import { fromEvent, timer, Observable, Subject } from 'rxjs';
 import { debounceTime, filter, map } from 'rxjs/operators';
@@ -35,7 +36,7 @@ import { ScrollGalleryItemComponent } from './item.component';
   styleUrls: ['./scroll-gallery.component.scss']
 })
 export class ScrollGalleryComponent
-  implements OnInit, OnDestroy, OnChanges, AfterViewInit {
+  implements OnInit, OnDestroy, OnChanges, AfterViewInit, AfterContentInit {
   @HostBinding('class.animated') initialized = false;
 
   /* Gallery items declared by user. */
@@ -49,6 +50,9 @@ export class ScrollGalleryComponent
   /** Gap between two gallery item. */
   @Input() gap: number = 120;
 
+  /** Scale rate when activated. */
+  @Input() scaleRate: number = 1.2;
+
   @Input() activatedItemPosition: ActivatedPosition = 100;
   @Input() bounceRate = 100;
   @Input() transitionSpeed = 200;
@@ -58,6 +62,7 @@ export class ScrollGalleryComponent
   @Output() readonly dragging = new EventEmitter<PointerVector>();
   @Output() readonly draggingEnd = new EventEmitter<void>();
 
+  isDragging = false;
   isTransitioning = false;
 
   private destroy$ = new Subject<void>();
@@ -70,7 +75,6 @@ export class ScrollGalleryComponent
   private passiveTranslate = 0;
   private draggingDiff = 0;
   private dragRef: SiDragRef;
-  private isDragging = false;
   private startOffsets: number[] = [];
   private bounceFunction: BounceFunction = x => x;
   private activatedItemIndex = 0;
@@ -104,8 +108,8 @@ export class ScrollGalleryComponent
   ngOnChanges(changes: SimpleChanges): void {
     const { scaleRate } = changes;
 
-    if (scaleRate) {
-      this.galleryItems.forEach(i => i.scaleRate === scaleRate.currentValue);
+    if (scaleRate && !scaleRate.isFirstChange) {
+      this.galleryItems.forEach(i => (i.scaleRate = scaleRate.currentValue));
     }
   }
 
@@ -114,14 +118,18 @@ export class ScrollGalleryComponent
   ngAfterViewInit(): void {
     this.dragRef.init();
     this.prepareGallery();
-
     // Prevent animation when the component does initial rendering.
     Promise.resolve().then(() => {
+      this.galleryItems.forEach(i => {
+        i.scaleRate = this.scaleRate;
+      });
       this.markItemActivated(0);
       this.moveTrack(this.getActivatedItemOffset(this.activatedItemIndex));
       this.initialized = true;
     });
   }
+
+  ngAfterContentInit(): void {}
 
   ngOnDestroy(): void {
     this.dragRef.dispose();
@@ -141,13 +149,22 @@ export class ScrollGalleryComponent
    */
   private prepareGallery(): void {
     let width = 0;
+    let lastItemWidth = 0;
+    const items = this.galleryItems.toArray();
+    const length = items.length;
 
     this.startOffsets = [];
 
-    this.galleryItems.toArray().forEach((item, index) => {
+    items.forEach((item, index) => {
       this.startOffsets.push(width);
 
-      width += item.el.clientWidth + this.gap;
+      const itemWidth = item.el.clientWidth;
+
+      width += itemWidth + this.gap;
+
+      if (index === length - 1) {
+        lastItemWidth = itemWidth;
+      }
 
       this.renderer.setStyle(
         item.el,
@@ -164,7 +181,11 @@ export class ScrollGalleryComponent
       `${trackWidth}px`
     );
 
-    this.bounceFunction = bounceFunctionFactory(0, trackWidth, this.bounceRate);
+    this.bounceFunction = bounceFunctionFactory(
+      0,
+      trackWidth - lastItemWidth,
+      this.bounceRate
+    );
   }
 
   /**

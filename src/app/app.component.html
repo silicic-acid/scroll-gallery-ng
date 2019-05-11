@@ -1,28 +1,121 @@
-<div class="container">
-  <si-scroll-gallery [gap]="200" [activatedItemPosition]="'center'">
-    <si-gallery-item>
-      A
-    </si-gallery-item>
-    <si-gallery-item>
-      B
-    </si-gallery-item>
-    <si-gallery-item>
-      C
-    </si-gallery-item>
-    <si-gallery-item>
-      D
-    </si-gallery-item>
-    <si-gallery-item>
-      E
-    </si-gallery-item>
-    <si-gallery-item>
-      F
-    </si-gallery-item>
-    <si-gallery-item>
-      G
-    </si-gallery-item>
-    <si-gallery-item>
-      H
-    </si-gallery-item>
-  </si-scroll-gallery>
+<div class="page-container">
+  <header>
+    <h1 class="header">
+      Si Scroll Gallery for Angular
+    </h1>
+    <img
+      id="avatar"
+      alt="avatar"
+      src="https://wendell.site/static/avatar.png"
+    />
+  </header>
+  <div class="container">
+    <section id="demo">
+      <h2 class="header">Demo</h2>
+      <div class="full-width-container">
+        <si-scroll-gallery
+          [gap]="120"
+          [bounceRate]="400"
+          [activatedItemPosition]="'center'"
+          [scaleRate]="1.1"
+        >
+          <si-gallery-item>
+            A
+          </si-gallery-item>
+          <si-gallery-item>
+            B
+          </si-gallery-item>
+          <si-gallery-item>
+            C
+          </si-gallery-item>
+          <si-gallery-item>
+            D
+          </si-gallery-item>
+          <si-gallery-item>
+            E
+          </si-gallery-item>
+          <si-gallery-item>
+            F
+          </si-gallery-item>
+          <si-gallery-item>
+            G
+          </si-gallery-item>
+          <si-gallery-item>
+            H
+          </si-gallery-item>
+        </si-scroll-gallery>
+      </div>
+    </section>
+    <section id="api">
+      <h2 class="header">API</h2>
+      <h3><pre>si-scroll-gallery</pre></h3>
+      <blockquote>The scroll-able container element.</blockquote>
+      <div class="full-width-container">
+        <table class="api-table">
+          <thead>
+            <tr>
+              <td>Property</td>
+              <td>Description</td>
+              <td>Type</td>
+              <td>Default Value</td>
+            </tr>
+            <tr>
+              <td>[gap]</td>
+              <td>Gap between two si-gallery-item</td>
+              <td>number</td>
+              <td>120</td>
+            </tr>
+            <tr>
+              <td>[scaleRate]</td>
+              <td>Scale ratio of activated si-gallery-item</td>
+              <td>number</td>
+              <td>1.2</td>
+            </tr>
+            <tr>
+              <td>[activatedItemPosition]</td>
+              <td>Left offset of the activated item to the left border</td>
+              <td>number | 'center'</td>
+              <td>1.2</td>
+            </tr>
+            <tr>
+              <td>[bounceRate]</td>
+              <td>
+                Bouncing flexibility of the component when it's scrolled to the
+                first or last
+              </td>
+              <td>number</td>
+              <td>100</td>
+            </tr>
+            <tr>
+              <td>(activatedChanged)</td>
+              <td>The currently activated item changed.</td>
+              <td>Subject</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>(draggingStarted)</td>
+              <td></td>
+              <td>Subject</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>(dragging)</td>
+              <td></td>
+              <td>PointerVector</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>(draggingEnd)</td>
+              <td></td>
+              <td>PointerVector</td>
+              <td>-</td>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <h3><pre>si-gallery-item</pre></h3>
+      <blockquote>The item.</blockquote>
+    </section>
+    <footer>MIT, 2019 © Wendell Hu with ❤️</footer>
+  </div>
 </div>

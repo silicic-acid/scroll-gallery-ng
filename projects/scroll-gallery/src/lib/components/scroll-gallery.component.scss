@@ -3,8 +3,8 @@ $prefix: 'si-scroll-gallery';
 si-scroll-gallery {
   .scroll-slack {
     position: relative;
-    overflow: hidden;
-    padding: 80px 0;
+    overflow-x: hidden;
+    padding: 60px 0;
   }
 
   .scroll-track {
