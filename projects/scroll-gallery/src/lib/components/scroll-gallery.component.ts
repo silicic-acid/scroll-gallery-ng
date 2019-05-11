@@ -16,7 +16,9 @@ import {
   QueryList,
   Renderer2,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
+  OnChanges,
+  SimpleChanges
 } from '@angular/core';
 import { fromEvent, timer, Observable, Subject } from 'rxjs';
 import { debounceTime, filter, map } from 'rxjs/operators';
@@ -33,7 +35,7 @@ import { ScrollGalleryItemComponent } from './item.component';
   styleUrls: ['./scroll-gallery.component.scss']
 })
 export class ScrollGalleryComponent
-  implements OnInit, OnDestroy, AfterViewInit {
+  implements OnInit, OnDestroy, OnChanges, AfterViewInit {
   @HostBinding('class.animated') initialized = false;
 
   /* Gallery items declared by user. */
@@ -93,9 +95,18 @@ export class ScrollGalleryComponent
       .pipe(debounceTime(16))
       .subscribe((e: Event) => {
         this.prepareGallery();
+        this.markItemActivated(this.activatedItemIndex);
         this.passiveTranslate = -this.startOffsets[this.activatedItemIndex];
         this.moveTrack(this.getActivatedItemOffset(this.activatedItemIndex));
       });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const { scaleRate } = changes;
+
+    if (scaleRate) {
+      this.galleryItems.forEach(i => i.scaleRate === scaleRate.currentValue);
+    }
   }
 
   ngOnInit(): void {}
@@ -106,6 +117,7 @@ export class ScrollGalleryComponent
 
     // Prevent animation when the component does initial rendering.
     Promise.resolve().then(() => {
+      this.markItemActivated(0);
       this.moveTrack(this.getActivatedItemOffset(this.activatedItemIndex));
       this.initialized = true;
     });
@@ -190,6 +202,7 @@ export class ScrollGalleryComponent
     this.animateToItemAtIndex(nearestItemIndex).subscribe(ok => {
       this.isTransitioning = false;
       this.passiveTranslate = -this.startOffsets[nearestItemIndex];
+      this.markItemActivated(nearestItemIndex);
 
       this.cdr.markForCheck();
     });

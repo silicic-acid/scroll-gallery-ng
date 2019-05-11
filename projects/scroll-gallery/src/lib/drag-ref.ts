@@ -39,38 +39,45 @@ export class SiDragRef {
         ? event.touches[0] || event.changedTouches[0]
         : event;
 
-      this.isDragging = true;
       this.pointerPosition = { x: point.clientX, y: point.clientY };
 
       this.document.addEventListener('mousemove', this.pointerMove);
       this.document.addEventListener('touchmove', this.pointerMove);
       this.document.addEventListener('mouseup', this.pointerUp);
       this.document.addEventListener('touchend', this.pointerUp);
-
-      this.dragStart$.next();
     }
   };
 
   private pointerMove = (event: MouseEvent | TouchEvent): void => {
+    const point = isTouchEvent(event)
+      ? event.touches[0] || event.changedTouches[0]
+      : event;
+
+    const delta = (this.pointerDelta = {
+      x: point.clientX - this.pointerPosition!.x,
+      y: point.clientY - this.pointerPosition!.y
+    });
+
+    if (Math.abs(delta.x) > 5) {
+      if (!this.isDragging) {
+        this.dragStart$.next();
+        this.isDragging = true;
+      }
+    }
+
     if (this.isDragging) {
-      const point = isTouchEvent(event)
-        ? event.touches[0] || event.changedTouches[0]
-        : event;
-
-      const delta = (this.pointerDelta = {
-        x: point.clientX - this.pointerPosition!.x,
-        y: point.clientY - this.pointerPosition!.y
-      });
-
       this.dragDelta$.next(delta);
     }
   };
 
   private pointerUp = (): void => {
-    if (this.isDragging) {
-      this.isDragging = false;
+    this.isDragging = false;
 
-      this.dragEnd$.next(this.pointerDelta);
-    }
+    this.dragEnd$.next(this.pointerDelta);
+
+    this.document.removeEventListener('mousemove', this.pointerMove);
+    this.document.removeEventListener('touchmove', this.pointerMove);
+    this.document.removeEventListener('mouseup', this.pointerUp);
+    this.document.removeEventListener('touchend', this.pointerUp);
   };
 }
