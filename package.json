@@ -1,11 +1,12 @@
 {
-  "name": "scroll-gallery-ng",
-  "version": "0.0.0",
+  "name": "@silicic/scroll-gallery-ng-workspace",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:lib": "ng build scroll-gallery",
+    "build:lib": "ng build scroll-gallery-ng",
+    "now-build": "ng build scroll-gallery-ng-docs --prod --output-path dist",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

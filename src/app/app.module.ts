@@ -1,19 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { ScrollGalleryModule } from '../../projects/scroll-gallery/src/lib';
+import { ScrollGalleryModule } from '../../projects/scroll-gallery-ng/src/lib';
 
 import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    ScrollGalleryModule
-  ],
+  declarations: [AppComponent],
+  imports: [BrowserModule, ScrollGalleryModule],
   providers: [],
-  bootstrap: [ AppComponent ]
+  bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
