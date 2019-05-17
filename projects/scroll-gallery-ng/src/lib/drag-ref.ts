@@ -73,11 +73,10 @@ export class SiDragRef {
     }
 
     if (this.isDragging) {
-      if (event.cancelable) {
-        event.preventDefault();
-      }
       this.dragDelta$.next(delta);
     }
+
+    event.preventDefault();
   };
 
   private pointerUp = (): void => {
