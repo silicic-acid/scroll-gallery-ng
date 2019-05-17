@@ -300,7 +300,10 @@ export class ScrollGalleryComponent
     const rightItemWidth = this.galleryItems.toArray()[firstFurtherIndex - 1].el
       .clientWidth;
 
-    if (direction === 'left' && parsedTranslate > leftOffset + leftItemWidth) {
+    if (
+      direction === 'left' &&
+      parsedTranslate > leftOffset + leftItemWidth - this.gap
+    ) {
       return firstFurtherIndex;
     } else if (
       direction === 'right' &&

@@ -42,7 +42,14 @@ export class SiDragRef {
       this.pointerPosition = { x: point.clientX, y: point.clientY };
 
       this.document.addEventListener('mousemove', this.pointerMove);
-      this.document.addEventListener('touchmove', this.pointerMove);
+      this.document.addEventListener(
+        'touchmove',
+        this.pointerMove,
+        normalizePassiveListenerOptions({
+          passive: false,
+          capture: true
+        })
+      );
       this.document.addEventListener('mouseup', this.pointerUp);
       this.document.addEventListener('touchend', this.pointerUp);
     }
@@ -66,6 +73,9 @@ export class SiDragRef {
     }
 
     if (this.isDragging) {
+      if (event.cancelable) {
+        event.preventDefault();
+      }
       this.dragDelta$.next(delta);
     }
   };
@@ -76,8 +86,41 @@ export class SiDragRef {
     this.dragEnd$.next(this.pointerDelta);
 
     this.document.removeEventListener('mousemove', this.pointerMove);
-    this.document.removeEventListener('touchmove', this.pointerMove);
+    this.document.removeEventListener(
+      'touchmove',
+      this.pointerMove,
+      normalizePassiveListenerOptions({
+        passive: false,
+        capture: true
+      })
+    );
     this.document.removeEventListener('mouseup', this.pointerUp);
     this.document.removeEventListener('touchend', this.pointerUp);
   };
+}
+
+let supportsPassiveEvents: boolean;
+
+export function supportsPassiveEventListeners(): boolean {
+  if (supportsPassiveEvents == null && typeof window !== 'undefined') {
+    try {
+      window.addEventListener(
+        'test',
+        null!,
+        Object.defineProperty({}, 'passive', {
+          get: () => (supportsPassiveEvents = true)
+        })
+      );
+    } finally {
+      supportsPassiveEvents = supportsPassiveEvents || false;
+    }
+  }
+
+  return supportsPassiveEvents;
+}
+
+export function normalizePassiveListenerOptions(
+  options: AddEventListenerOptions
+): AddEventListenerOptions | boolean {
+  return supportsPassiveEventListeners() ? options : !!options.capture;
 }
