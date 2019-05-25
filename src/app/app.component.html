@@ -3,18 +3,12 @@
     <h1 class="header">
       Si Scroll Gallery for Angular
     </h1>
-    <img id="avatar"
-         alt="avatar"
-         src="https://wendell.site/static/avatar.png" />
   </header>
-  <div class="container">
+  <div class="content-container">
     <section id="demo">
       <h2 class="header">Demo</h2>
       <div class="full-width-container">
-        <si-scroll-gallery [gap]="120"
-                           [bounceRate]="400"
-                           [activatedItemPosition]="'center'"
-                           [scaleRate]="1.1">
+        <si-scroll-gallery [gap]="120" [bounceRate]="400" [activatedItemPosition]="'center'" [scaleRate]="1.1">
           <si-gallery-item>
             A
           </si-gallery-item>
@@ -47,7 +41,7 @@
       <h3>
         <pre>si-scroll-gallery</pre>
       </h3>
-      <blockquote>The scroll-able container element.</blockquote>
+      <p>The scroll-able container element.</p>
       <div class="full-width-container">
         <table class="api-table">
           <thead>
@@ -114,8 +108,8 @@
       <h3>
         <pre>si-gallery-item</pre>
       </h3>
-      <blockquote>The item.</blockquote>
+      <p>The item.</p>
     </section>
-    <footer>MIT, 2019 © Wendell Hu with ❤️</footer>
+    <footer class="footer">MIT, 2019 © Wendell Hu with ❤️</footer>
   </div>
 </div>

@@ -1,14 +1,2 @@
 /* You can add global styles to this file, and also import other style files */
-
-* {
-  font-family: Vollkorn, 'PingFang SC', 'Helvetica', Arial;
-}
-
-a {
-  text-decoration: none;
-  color: rgb(24, 120, 254);
-}
-
-a:hover {
-  text-decoration: underline;
-}
+@import '../node_modules/@silicic/share-styles/dist/index.css';
